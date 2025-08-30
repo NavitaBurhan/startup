@@ -55,9 +55,6 @@ progress 5
 echo ""
 sleep 1
 
-# Ganti working dir ke /mnt/server
-cd /mnt/server || { echo -e "${RED}❌ Gagal masuk ke /mnt/server${RESET}"; exit 1; }
-
 # Jalankan server sesuai OS
 if [ "$SERVER_OS" = "linux" ]; then
     echo -e "${BLUE}🐧 Menjalankan SA-MP Linux server...${RESET}"
