@@ -10,7 +10,6 @@ CYAN='\033[0;36m'
 WHITE='\033[1;37m'
 RESET='\033[0m'
 
-# Garis pembatas dengan warna gradien ala-ala
 line() {
   echo -e "${MAGENTA}=========================================${RESET}"
 }
@@ -19,7 +18,7 @@ clear
 line
 echo -e "${CYAN}🚀 SkyNest SA-MP${RESET}"
 line
-echo -e "${YELLOW}🌐 OS Pilihan   :${RESET} ${GREEN}$SERVER_OS${RESET}"
+echo -e "${YELLOW}🌐 OS           :${RESET} ${GREEN}$SERVER_OS${RESET}"
 echo -e "${YELLOW}📡 Port         :${RESET} ${GREEN}$SERVER_PORT${RESET}"
 echo -e "${YELLOW}👥 Max Players  :${RESET} ${GREEN}$MAX_PLAYERS${RESET}"
 line
