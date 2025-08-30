@@ -1,23 +1,39 @@
 #!/bin/bash
 
-echo "====================================="
-echo "  SkyNest SA-MP MultiOS - Startup"
-echo "====================================="
-echo "OS Pilihan: $SERVER_OS"
-echo "Port: $SERVER_PORT"
-echo "Max Players: $MAX_PLAYERS"
-echo "====================================="
+# Warna ANSI
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+BLUE='\033[0;34m'
+MAGENTA='\033[0;35m'
+CYAN='\033[0;36m'
+WHITE='\033[1;37m'
+RESET='\033[0m'
+
+# Garis pembatas dengan warna gradien ala-ala
+line() {
+  echo -e "${MAGENTA}=========================================${RESET}"
+}
+
+clear
+line
+echo -e "${CYAN}🚀 SkyNest SA-MP MultiOS - Startup${RESET}"
+line
+echo -e "${YELLOW}🌐 OS Pilihan   :${RESET} ${GREEN}$SERVER_OS${RESET}"
+echo -e "${YELLOW}📡 Port         :${RESET} ${GREEN}$SERVER_PORT${RESET}"
+echo -e "${YELLOW}👥 Max Players  :${RESET} ${GREEN}$MAX_PLAYERS${RESET}"
+line
 
 # Ganti working dir ke /mnt/server
-cd /mnt/server || exit 1
+cd /mnt/server || { echo -e "${RED}❌ Gagal masuk ke /mnt/server${RESET}"; exit 1; }
 
 if [ "$SERVER_OS" = "linux" ]; then
-    echo "Menjalankan SA-MP Linux server..."
+    echo -e "${BLUE}🐧 Menjalankan SA-MP Linux server...${RESET}"
     exec ./samp03svr
 elif [ "$SERVER_OS" = "windows" ]; then
-    echo "Menjalankan SA-MP Windows server (Wine)..."
+    echo -e "${MAGENTA}🖥 Menjalankan SA-MP Windows server (Wine)...${RESET}"
     exec wine64 ./samp-server.exe
 else
-    echo "ERROR: SERVER_OS tidak valid (harus 'linux' atau 'windows')"
+    echo -e "${RED}❌ ERROR: SERVER_OS tidak valid (harus 'linux' atau 'windows')${RESET}"
     exit 1
 fi
