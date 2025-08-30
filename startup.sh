@@ -17,21 +17,18 @@ line() {
 
 clear
 line
-echo -e "${CYAN}🚀 SkyNest SA-MP MultiOS - Startup${RESET}"
+echo -e "${CYAN}🚀 SkyNest SA-MP${RESET}"
 line
 echo -e "${YELLOW}🌐 OS Pilihan   :${RESET} ${GREEN}$SERVER_OS${RESET}"
 echo -e "${YELLOW}📡 Port         :${RESET} ${GREEN}$SERVER_PORT${RESET}"
 echo -e "${YELLOW}👥 Max Players  :${RESET} ${GREEN}$MAX_PLAYERS${RESET}"
 line
 
-# Ganti working dir ke /mnt/server
-cd /mnt/server || { echo -e "${RED}❌ Gagal masuk ke /mnt/server${RESET}"; exit 1; }
-
 if [ "$SERVER_OS" = "linux" ]; then
     echo -e "${BLUE}🐧 Menjalankan SA-MP Linux server...${RESET}"
     exec ./samp03svr
 elif [ "$SERVER_OS" = "windows" ]; then
-    echo -e "${MAGENTA}🖥 Menjalankan SA-MP Windows server (Wine)...${RESET}"
+    echo -e "${MAGENTA}🪟 Menjalankan SA-MP Windows server (Wine)...${RESET}"
     exec wine64 ./samp-server.exe
 else
     echo -e "${RED}❌ ERROR: SERVER_OS tidak valid (harus 'linux' atau 'windows')${RESET}"
