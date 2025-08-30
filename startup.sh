@@ -11,29 +11,36 @@ WHITE='\033[1;37m'
 RESET='\033[0m'
 BOLD='\033[1m'
 
-# Garis gradien elegan
+# Garis elegan
 line() {
   echo -e "${MAGENTA}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${RESET}"
 }
 
 # Efek progress bar
 progress() {
-  local duration=${1:-5}
-  local interval=0.1
-  local steps=$((duration / interval))
-  echo -ne "${CYAN}⚡ Starting up:${RESET} "
-  for ((i=0; i<steps; i++)); do
-    local percent=$(( (i * 100) / steps ))
-    local filled=$((percent / 4))
-    local empty=$((25 - filled))
+  local duration=${1:-5}    # lama progress (detik)
+  local interval=0.1        # kecepatan update
+  local total_steps=$((duration / interval))
+  
+  for ((i=0; i<=total_steps; i++)); do
+    local percent=$(( (i * 100) / total_steps ))
+    local filled=$((percent / 4))   # panjang bar isi
+    local empty=$((25 - filled))    # panjang bar kosong
+    
+    # Cetak bar dengan overwrite
     printf "\r${CYAN}⚡ Starting up:${RESET} [${GREEN}%0.s█${RESET}" $(seq 1 $filled)
     printf "%0.s░" $(seq 1 $empty)
-    printf "] ${YELLOW}%d%%${RESET}" "$percent"
+    printf "] ${YELLOW}%3d%%%s" "$percent" "${RESET}"
+    
     sleep $interval
   done
-  echo -e "\r${GREEN}✅ Startup selesai!                        ${RESET}"
+  
+  echo -e "\n${GREEN}✅ Startup selesai!${RESET}"
 }
 
+# ============================
+# Main Startup
+# ============================
 clear
 line
 echo -e "${BOLD}${CYAN}🚀 SkyNest SA-MP MultiOS - Startup${RESET}"
@@ -43,11 +50,15 @@ echo -e "${YELLOW}📡 Port         :${RESET} ${GREEN}$SERVER_PORT${RESET}"
 echo -e "${YELLOW}👥 Max Players  :${RESET} ${GREEN}$MAX_PLAYERS${RESET}"
 line
 
-# Progress loading biar keren
-progress 3
+# Progress loading
+progress 5
 echo ""
 sleep 1
 
+# Ganti working dir ke /mnt/server
+cd /mnt/server || { echo -e "${RED}❌ Gagal masuk ke /mnt/server${RESET}"; exit 1; }
+
+# Jalankan server sesuai OS
 if [ "$SERVER_OS" = "linux" ]; then
     echo -e "${BLUE}🐧 Menjalankan SA-MP Linux server...${RESET}"
     exec ./samp03svr
